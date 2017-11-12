@@ -1,0 +1,99 @@
+function f = evaluate_objective(x, M, V)
+
+%% function f = evaluate_objective(x, M, V)
+% Function to evaluate the objective functions for the given input vector
+% x. x is an array of decision variables and f(1), f(2), etc are the
+% objective functions. The algorithm always minimizes the objective
+% function hence if you would like to maximize the function then multiply
+% the function by negative one. M is the numebr of objective functions and
+% V is the number of decision variables. 
+%
+% This functions is basically written by the user who defines his/her own
+% objective function. Make sure that the M and V matches your initial user
+% input. Make sure that the 
+%
+% An example objective function is given below. It has two six decision
+% variables are two objective functions.
+
+% f = [];
+% %% Objective function one
+% % Decision variables are used to form the objective function.
+% f(1) = 1 - exp(-4*x(1))*(sin(6*pi*x(1)))^6;
+% sum = 0;
+% for i = 2 : 6
+%     sum = sum + x(i)/4;
+% end
+% %% Intermediate function
+% g_x = 1 + 9*(sum)^(0.25);
+% 
+% %% Objective function two
+% f(2) = g_x*(1 - ((f(1))/(g_x))^2);
+
+%% Kursawe proposed by Frank Kursawe.
+% Take a look at the following reference
+% A variant of evolution strategies for vector optimization.
+% In H. P. Schwefel and R. M鋘ner, editors, Parallel Problem Solving from
+% Nature. 1st Workshop, PPSN I, volume 496 of Lecture Notes in Computer 
+% Science, pages 193-197, Berlin, Germany, oct 1991. Springer-Verlag. 
+%
+% Number of objective is two, while it can have arbirtarly many decision
+% variables within the range -5 and 5. Common number of variables is 3.
+global cpoints;
+f = [];
+% Objective function one
+L = calLMatrix(x(1),x(2),x(3),x(4),x(5),cpoints);
+        
+        Lavg = mean(mean(L));
+        Lmin_global = min(min(L));
+        Lrmin_1 = min(L(:,101:200));
+        Lrmax_1 = max(L(:,101:200));
+        Lrmin_2 = min(L(:,401:500));
+        Lrmax_2 = max(L(:,401:500));
+        Lrmin_3 = min(L(:,701:800));
+        Lrmax_3 = max(L(:,701:800));
+        
+        %% objective 1: caculate Lavg Lavg_best = 4.5
+        Lavg_best = 4.5;
+        if Lavg<=0.8*Lavg_best
+            y1=0.01*Lavg/(0.8*Lavg_best);
+        elseif Lavg>0.8*Lavg_best&&Lavg<=Lavg_best
+            y1=0.01+0.99*(Lavg-0.8*Lavg_best)/(0.2*Lavg_best);
+        else
+            y1=1+0.005*(Lavg-Lavg_best)/(0.5*Lavg_best);
+        end
+        
+        
+        %% objective 2: 亮度均匀度 U0_best = 0.4
+        U0_best = 0.4;
+        U0 = Lmin_global/Lavg;
+        if U0<=0.8*U0_best
+            y2=0.01;
+        elseif U0>0.8*U0_best&&U0<=U0_best
+            y2=0.01+0.99*(U0-0.8*U0_best)/(0.2*U0_best);
+        else
+            y2=1+0.3*(U0-U0_best);
+        end
+        
+        %% objective 3: 中线亮度均匀度 U1_best = 0.6
+        U1_best = 0.6;
+        U13 = [ Lrmin_1/Lrmax_1,Lrmin_2/Lrmax_2,Lrmin_3/Lrmax_3];
+        y3 = 1;
+        for i = 1:3
+            if U13(i)<=0.8*U1_best
+                z=0.01;
+            elseif U13(i)>0.8*U1_best&&U13(i)<=U1_best
+                z=0.01+0.99*(U13(i)-0.8*U1_best)/(0.2*U1_best);
+            else
+                z=1+0.3*(U13(i)-U1_best);
+            end
+            y3=y3*z;
+        end
+        
+		f(1) = y1 * y2 * y3;
+        %% objective 4：布灯数目
+        f(2) = 100/x(3);  
+
+%% Check for error
+if length(f) ~= M
+    error('The number of decision variables does not match you previous input. Kindly check your objective function');
+end
