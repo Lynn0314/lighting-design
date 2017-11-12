@@ -1,4 +1,4 @@
 clc;
 clear all;
 
-nsga_2(100,50);
+nsga_2(20,10);

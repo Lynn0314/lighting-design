@@ -42,7 +42,7 @@ global cpoints;
 f = [];
 % Objective function one
 L = calLMatrix(x(1),x(2),x(3),x(4),x(5),cpoints);
-        
+        L
         Lavg = mean(mean(L));
         Lmin_global = min(min(L));
         Lrmin_1 = min(L(:,101:200));
@@ -53,7 +53,7 @@ L = calLMatrix(x(1),x(2),x(3),x(4),x(5),cpoints);
         Lrmax_3 = max(L(:,701:800));
         
         %% objective 1: caculate Lavg Lavg_best = 4.5
-        Lavg_best = 4.5;
+        Lavg_best = 2.0;
         if Lavg<=0.8*Lavg_best
             y1=0.01*Lavg/(0.8*Lavg_best);
         elseif Lavg>0.8*Lavg_best&&Lavg<=Lavg_best
@@ -89,7 +89,7 @@ L = calLMatrix(x(1),x(2),x(3),x(4),x(5),cpoints);
             y3=y3*z;
         end
         
-		f(1) = y1 * y2 * y3;
+		f(1) = y1 * y2 * y3*10^10;
         %% objective 4£º²¼µÆÊýÄ¿
         f(2) = 100/x(3);  
 

@@ -42,18 +42,14 @@ for points = 1:100
             q
             deltaL = calIlluminance(CoorC,CoorD1,alpha,beta,1)*q
             L(indexCal) = L(indexCal)+ deltaL;
-            fprintf('%s, %s %f \n','left',a,deltaL)
+            fprinttf('%s, %s %f \n','left',a,)
             
             CoorD2 = DrPoints(:,lampsIndex);
             [tanGamma,beta2] = calQAngle(CoorC, CoorD2);
             q = calSimplifiedQ(tanGamma,beta2);
-            deltaR = calIlluminance(CoorC,CoorD2,alpha,beta,0)*q;
-            L(indexCal) =L(indexCal)+ deltaR;
-            fprintf('%s, %s %f \n','right',a,deltaR)
-            
+            L(indexCal) =L(indexCal)+ calIlluminance(CoorC,CoorD2,alpha,beta,0)*q;
+            L(indexCal)
         end
-        fprintf('%d %s %f \n',indexCal,'×ÜÁÁ¶ÈÎª£º',L(indexCal))
-         
     end
     layer = layer + 1
     points
