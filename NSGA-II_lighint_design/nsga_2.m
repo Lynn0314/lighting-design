@@ -75,6 +75,7 @@ cpoints = Cpoints();
 
 pop = round(pop);
 gen = round(gen);
+fprintf('%s \n','------------Start£º')
 %% Objective Function
 % The objective function description contains information about the
 % objective function. M is the dimension of the objective space, V is the
@@ -82,6 +83,7 @@ gen = round(gen);
 % range for the variables in the decision variable space. User has to
 % define the objective functions using the decision variables. Make sure to
 % edit the function 'evaluate_objective' to suit your needs.
+fprintf('%s \n','------------objective_description_function£º')
 [M, V, min_range, max_range] = objective_description_function();
 
 %% Initialize the population
@@ -91,6 +93,7 @@ gen = round(gen);
 % information is also added to the chromosome vector but only the elements
 % of the vector which has the decision variables are operated upon to
 % perform the genetic operations like corssover and mutation.
+fprintf('%s \n','------------initialize_variables£º')
 chromosome = initialize_variables(pop, M, V, min_range, max_range);
 
 
@@ -100,6 +103,7 @@ chromosome = initialize_variables(pop, M, V, min_range, max_range);
 % corresponding to their position in the front they belong. At this stage
 % the rank and the crowding distance for each chromosome is added to the
 % chromosome vector for easy of computation.
+fprintf('%s \n','------------non_domination_sort_mod£º')
 chromosome = non_domination_sort_mod(chromosome, M, V);
 
 %% Start the evolution process
@@ -111,6 +115,7 @@ chromosome = non_domination_sort_mod(chromosome, M, V);
 %   constant population size.
 
 for i = 1 : gen
+     fprintf('%s %d \n','--------------µÚn´ú£º',i)
     % Select the parents
     % Parents are selected for reproduction to generate offspring. The
     % original NSGA-II uses a binary tournament selection based on the

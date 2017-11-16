@@ -47,10 +47,10 @@ Lavg = mean(mean(L))
 Lmin_global = min(min(L));
 Lrmin_1 = min(L(:,2:9:end));
 Lrmax_1 = max(L(:,2:9:end));
-Lrmin_2 = min(L(:,5:9:end));
-Lrmax_2 = max(L(:,5:9:end));
-Lrmin_3 = min(L(:,8:9:end));
-Lrmax_3 = max(L(:,8:9:end));
+Lrmin_2 = min(L(:,2:9:end));
+Lrmax_2 = max(L(:,2:9:end));
+Lrmin_3 = min(L(:,701:800));
+Lrmax_3 = max(L(:,701:800));
 
 %% objective 1: caculate Lavg Lavg_best = 4.5
 Lavg_best = 2.0;

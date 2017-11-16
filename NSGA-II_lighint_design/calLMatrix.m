@@ -19,7 +19,7 @@ DrPoints(2,:) = 0:l:(numOfLamps-1)*l;
 % 高度即为安装高度 h
 DlPoints(3, :) =  h .* DlPoints(3,:);
 DrPoints(3, :) =  h .* DrPoints(3,:);
-DlPoints
+DlPoints;
 
 %% 针对每一个计算点进行计算
 layer = 0;
@@ -39,22 +39,22 @@ for points = 1:100
             %CoorD1
             [tanGamma,beta1] = calQAngle(CoorC, CoorD1);
             q = calSimplifiedQ(tanGamma,beta1);
-            q
-            deltaL = calIlluminance(CoorC,CoorD1,alpha,beta,1)*q
+            %q
+            deltaL = calIlluminance(CoorC,CoorD1,alpha,beta,1)*q;
             L(indexCal) = L(indexCal)+ deltaL;
-            fprintf('%s, %s %f \n','left',a,deltaL)
+            %fprintf('%s, %s %f \n','left',a,deltaL)
             
             CoorD2 = DrPoints(:,lampsIndex);
             [tanGamma,beta2] = calQAngle(CoorC, CoorD2);
             q = calSimplifiedQ(tanGamma,beta2);
             deltaR = calIlluminance(CoorC,CoorD2,alpha,beta,0)*q;
             L(indexCal) =L(indexCal)+ deltaR;
-            fprintf('%s, %s %f \n','right',a,deltaR)
+            %fprintf('%s, %s %f \n','right',a,deltaR)
             
         end
-        fprintf('%d %s %f \n',indexCal,'总亮度为：',L(indexCal))
+        %fprintf('%d %s %f \n',indexCal,'总亮度为：',L(indexCal))
          
     end
-    layer = layer + 1
-    points
+    layer = layer + 1;
+    points;
 end

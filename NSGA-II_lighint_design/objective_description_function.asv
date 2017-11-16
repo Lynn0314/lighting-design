@@ -35,7 +35,7 @@ function [number_of_objectives, number_of_decision_variables, min_range_of_deces
 
 g = sprintf('Input the number of objective: ');
 % Obtain the number of objective function
-number_of_objectives = 3;
+number_of_objectives = 2;
 if number_of_objectives < 2
     error('This is a multi-objective optimization function hence the minimum number of objectives is two');
 end
@@ -44,16 +44,16 @@ g = sprintf('\nInput the number of decision variables: ');
 number_of_decision_variables = 5;
 clc
 range = ones(number_of_decision_variables,2);
-range(1,1) = -20;%纵横向的角度都设置为�?��20�?
-range(2,1) = -20;
-range(3,1) = 5.56; %小功率LED灯，要满足频率要求，�?��>15HZ,l<1.48m
-range(4,1) = 4;%隧道设计高度�?.5m,�?��设置�?
+range(1,1) = -18.0138227869703;%纵横向的角度都设置为�?��20�?
+range(2,1) = 16.1086443966112;
+range(3,1) = 19.2027270195806; %小功率LED灯，要满足频率要求，�?��>15HZ,l<1.48m
+range(4,1) = 4.73629613870212;%隧道设计高度�?.5m,�?��设置�?
 range(5,1) = 0;%车道宽度�?m，在中间建立坐标系，即灯具横向最远为4.5m
 
-range(1,2) = 20;%纵横向的角度都设置为�?��20�?
-range(2,2) = 20;
-range(3,2) = 8; %小功率LED灯，要满足频率要求，�?��>15HZ,l<1.48m
-range(4,2) = 5.5;%隧道设计高度�?.5m
+range(1,2) = -18.0138227869703;%纵横向的角度都设置为�?��20�?
+range(2,2) = 16.1086443966112;
+range(3,2) = 19.2027270195806; %小功率LED灯，要满足频率要求，�?��>15HZ,l<1.48m
+range(4,2) = 4.73629613870212;%隧道设计高度�?.5m
 range(5,2) = 1.5;%车道宽度�?m，在中间建立坐标系，即灯具横向最远为4.5m
 for i = 1 : number_of_decision_variables
     clc
